@@ -89,7 +89,7 @@ class WaterViewModel(application: Application) : AndroidViewModel(application) {
     fun increment() {
         _drank.postValue(_drank.value?.plus(1))
         viewModelScope.launch(Dispatchers.IO) {
-            stvm.storeInt("drank", _drank.value!!)
+            stvm.storeInt("drank", _drank.value!!+1)
         }
     }
 
@@ -103,7 +103,7 @@ class WaterViewModel(application: Application) : AndroidViewModel(application) {
     fun autoIncrement() {
         _drank.postValue(_drank.value?.plus(1))
         viewModelScope.launch(Dispatchers.IO) {
-            stvm.storeInt("drank", _drank.value!!)
+            stvm.storeInt("drank", _drank.value!!+1)
         }
         _finishedDrinking.postValue(false)
     }

@@ -40,10 +40,10 @@ fun MainScreen(
     val finishedDrinking by vm.finishedDrinking.observeAsState()
 
     //NOTE: Debug messes with UI a lot b/c it uses ScalingLazyColumn!
-    val debug = false // Debug variable. Display sensor and boolean values (see below)
+    val debug = true // Debug variable. Display sensor and boolean values (see below)
     val debugAccel = false // Debug variable. Display accelerometer values
     val debugRot = false // Debug variable. Display rotation values
-    val debugGlass = false // Debug variable. Display glass boolean values
+    val debugGlass = true // Debug variable. Display glass boolean values
 
     val debugConfirmation = false // Debug variable. Adds a button to show the confirmation dialog.
 
@@ -110,67 +110,61 @@ fun MainScreen(
         }
 
         //Lower Text
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.primary,
-            text = "Water Tracker"
-        )
+        if (debug == false) { // Remove flavor text if not needed
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colors.primary,
+                text = "Water Tracker"
+            )
+        }
 
         if (finishedDrinking == true) {
             ShowConfirmationDialog(context = LocalContext.current, vm = vm)
         }
 
         if (debug) {
-            ScalingLazyColumn (horizontalAlignment = Alignment.CenterHorizontally) {
-                /*** DEBUG VALUES ***/
+            /*** DEBUG VALUES ***/
 
-                if (debugAccel) {
-                    item {
-                        Text(
-                            textAlign = TextAlign.Center,
-                            text = "X:${accelerometerData.first} Y:${accelerometerData.second} Z:${accelerometerData.third}"
-                        )
-                    }
-                }
-
-                if (debugGlass) {
-                    item {
-                        Row {
-                            Text(
-                                textAlign = TextAlign.Center,
-                                text = "${vm.glassObtained.observeAsState().value} "
-                            )
-                            Text(
-                                textAlign = TextAlign.Center,
-                                text = "${vm.glassRaised.observeAsState().value} "
-                            )
-                            Text(
-                                textAlign = TextAlign.Center,
-                                text = "${vm.glassEmpty.observeAsState().value} "
-                            )
-                            Text(
-                                textAlign = TextAlign.Center,
-                                text = "${vm.glassLowered.observeAsState().value} "
-                            )
-                            Text(
-                                textAlign = TextAlign.Center,
-                                text = "${vm.finishedDrinking.observeAsState().value}"
-                            )
-                        }
-                    }
-                }
-
-                if (debugRot) {
-                    item {
-                        Text(
-                            textAlign = TextAlign.Center,
-                            text = "P:${rotationData.second} R:${rotationData.third}"
-                        )
-                    }
-                }
-                /*** END  DEBUG VALUES ***/
+            if (debugAccel) {
+                Text(
+                    textAlign = TextAlign.Center,
+                    text = "X:${accelerometerData.first} Y:${accelerometerData.second} Z:${accelerometerData.third}"
+                )
             }
+
+            if (debugGlass) {
+                Row {
+                    Text(
+                        textAlign = TextAlign.Center,
+                        text = "${vm.glassObtained.observeAsState().value} "
+                    )
+                    Text(
+                        textAlign = TextAlign.Center,
+                        text = "${vm.glassRaised.observeAsState().value} "
+                    )
+                    Text(
+                        textAlign = TextAlign.Center,
+                        text = "${vm.glassEmpty.observeAsState().value} "
+                    )
+                    Text(
+                        textAlign = TextAlign.Center,
+                        text = "${vm.glassLowered.observeAsState().value} "
+                    )
+                    Text(
+                        textAlign = TextAlign.Center,
+                        text = "${vm.finishedDrinking.observeAsState().value}"
+                    )
+                }
+            }
+
+            if (debugRot) {
+                Text(
+                    textAlign = TextAlign.Center,
+                    text = "P:${rotationData.second} R:${rotationData.third}"
+                )
+            }
+            /*** END  DEBUG VALUES ***/
         }
     }
 }
