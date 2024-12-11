@@ -188,24 +188,24 @@ class WaterViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun updateAccelerometerData(x: Float, y: Float, z: Float) {
-            if (y >= 1.0f) {
-                // After getting the drink, lift it
-                if (_glassObtained.value == true) {
-                    startTime = SystemClock.elapsedRealtime() // Reset clock.
-                    _glassRaised.postValue(true)
-                }
-            } else if (y <= -1.0f) {
-                // After drinking, lower the glass
-                if (_glassEmpty.value == true) {
-                    _glassLowered.postValue(true)
-                }
-
-                // Undo drink if lowered before drank.
-                if (_glassObtained.value == true && _glassRaised.value == true && _glassEmpty.value == false) {
-                    _glassRaised.postValue(false)
-                    _glassObtained.postValue(false)
-                }
+        if (y >= 1.0f) {
+            // After getting the drink, lift it
+            if (_glassObtained.value == true) {
+                startTime = SystemClock.elapsedRealtime() // Reset clock.
+                _glassRaised.postValue(true)
             }
+        } else if (y <= -1.0f) {
+            // After drinking, lower the glass
+            if (_glassEmpty.value == true) {
+                _glassLowered.postValue(true)
+            }
+
+            // Undo drink if lowered before drank.
+            if (_glassObtained.value == true && _glassRaised.value == true && _glassEmpty.value == false) {
+                _glassRaised.postValue(false)
+                _glassObtained.postValue(false)
+            }
+        }
 
         // If the timer has expired (3 seconds since glass grabbed) reset glassObtained.
         if (_glassObtained.value == true && _glassRaised.value == false && SystemClock.elapsedRealtime() - startTime >= 3000) {
