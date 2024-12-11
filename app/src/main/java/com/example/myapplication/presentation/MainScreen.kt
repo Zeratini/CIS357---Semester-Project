@@ -40,7 +40,7 @@ fun MainScreen(
     val finishedDrinking by vm.finishedDrinking.observeAsState()
 
     //NOTE: Debug messes with UI a lot b/c it uses ScalingLazyColumn!
-    val debug = true // Debug variable. Display sensor and boolean values (see below)
+    val debug = false // Debug variable. Display sensor and boolean values (see below)
     val debugAccel = false // Debug variable. Display accelerometer values
     val debugRot = false // Debug variable. Display rotation values
     val debugGlass = true // Debug variable. Display glass boolean values
