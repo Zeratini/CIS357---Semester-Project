@@ -26,7 +26,6 @@ class WaterViewModel(application: Application) : AndroidViewModel(application) {
     //Sensor Manager
     private val sensorManager = application.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-//    private val vibrator = application.getSystemService(VIBRATOR_SERVICE) as Vibrator
     private val vibratorManager = application.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
     private val vibrator = vibratorManager.defaultVibrator
 
